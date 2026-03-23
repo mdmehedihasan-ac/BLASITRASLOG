@@ -34,7 +34,7 @@ export default function PreventivoNoleggioFurgone() {
       `Data: ${form.data}`,
       `Indirizzo ritiro: ${form.indirizzo}`,
       form.note ? `Note: ${form.note}` : '',
-    ].filter(Boolean).join('\n'))
+    ].filter(Boolean).join('\r\n'))
     window.location.href = `mailto:info@blasitraslog.it?subject=${subject}&body=${body}`
   }
 

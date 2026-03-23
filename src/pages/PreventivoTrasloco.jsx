@@ -46,7 +46,7 @@ export default function PreventivoTrasloco() {
       `Ascensore: ${form.destinazioneAscensore}`,
       '',
       form.note ? `Note: ${form.note}` : '',
-    ].filter(Boolean).join('\n'))
+    ].filter(Boolean).join('\r\n'))
     window.location.href = `mailto:info@blasitraslog.it?subject=${subject}&body=${body}`
   }
 

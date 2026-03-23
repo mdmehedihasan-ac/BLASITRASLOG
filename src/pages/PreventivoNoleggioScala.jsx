@@ -36,7 +36,7 @@ export default function PreventivoNoleggioScala() {
       `Indirizzo: ${form.indirizzo}`,
       `Piano: ${form.piano}`,
       form.note ? `Note: ${form.note}` : '',
-    ].filter(Boolean).join('\n'))
+    ].filter(Boolean).join('\r\n'))
     window.location.href = `mailto:info@blasitraslog.it?subject=${subject}&body=${body}`
   }
 
