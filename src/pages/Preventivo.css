@@ -1,0 +1,27 @@
+.prev-layout{display:grid;grid-template-columns:1.4fr 0.6fr;gap:40px;align-items:start}
+.prev-form-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:40px;border-top:4px solid var(--gold)}
+.prev-form-card h2{margin-bottom:8px}
+.prev-form-card .subtitle{color:var(--text-light);margin-bottom:32px}
+.form-section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--navy);margin:28px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--gold);display:inline-block}
+.prev-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.prev-photo-slot{aspect-ratio:1;border:2px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--transition);overflow:hidden;position:relative;background:var(--off-white)}
+.prev-photo-slot:hover{border-color:var(--gold)}
+.prev-photo-slot img{width:100%;height:100%;object-fit:cover}
+.prev-photo-slot .remove-photo{position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.prev-sidebar{position:sticky;top:100px}
+.prev-sidebar-card{background:var(--navy);border-radius:var(--radius-lg);padding:32px;margin-bottom:24px}
+.prev-sidebar-card h3{color:var(--white);margin-bottom:16px}
+.prev-sidebar-card .step{display:flex;gap:12px;margin-bottom:16px}
+.prev-sidebar-card .step-num{width:32px;height:32px;background:var(--gold);color:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;flex-shrink:0;font-family:'Montserrat',sans-serif}
+.prev-sidebar-card .step p{color:rgba(255,255,255,0.75);font-size:0.88rem;line-height:1.6}
+.prev-sidebar-card .step strong{color:var(--white);display:block;margin-bottom:2px;font-size:0.9rem}
+.privacy-check{display:flex;align-items:flex-start;gap:10px;margin:20px 0}
+.privacy-check input{margin-top:4px;accent-color:var(--gold)}
+.privacy-check label{font-size:0.85rem;color:var(--text-light)}
+.mailto-photo-hint{display:flex;align-items:flex-start;gap:8px;margin-top:12px;padding:10px 14px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;font-size:0.82rem;color:#0369a1;line-height:1.5}
+.mailto-photo-hint svg{flex-shrink:0;margin-top:2px}
+@media(max-width:768px){
+  .prev-layout{grid-template-columns:1fr}
+  .prev-sidebar{position:static}
+  .prev-photos{grid-template-columns:repeat(3,1fr)}
+}

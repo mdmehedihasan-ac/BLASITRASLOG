@@ -1,0 +1,26 @@
+.footer{
+  background: linear-gradient(180deg, #0c1220 0%, #0f172a 100%);
+  color: rgba(255,255,255,0.75);
+  padding: 72px 0 0;
+}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.footer-brand h3{color:var(--white);font-size:1.3rem;margin-bottom:16px;letter-spacing:-0.3px}
+.footer-brand h3 span{color:var(--gold)}
+.footer-brand p{font-size:0.9rem;line-height:1.8;margin-bottom:20px}
+.footer-contact-item{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:0.88rem}
+.footer-contact-item svg{color:var(--gold);flex-shrink:0}
+.footer h4{color:var(--white);font-size:0.95rem;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
+.footer-links li{margin-bottom:8px}
+.footer-links a{font-size:0.88rem;transition:var(--transition);display:flex;align-items:center;gap:6px}
+.footer-links a:hover{color:var(--gold);padding-left:4px}
+.footer-certs{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.footer-certs .cert-badge{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:6px 12px;font-size:0.75rem;font-weight:600;color:var(--gold)}
+.footer-bottom{padding:28px 0;text-align:center;font-size:0.8rem;color:rgba(255,255,255,0.45);letter-spacing:0.2px}
+.footer-bottom a{color:var(--gold)}
+
+@media(max-width:768px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:480px){
+  .footer-grid{grid-template-columns:1fr}
+}

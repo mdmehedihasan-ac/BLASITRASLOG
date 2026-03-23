@@ -1,0 +1,31 @@
+.chi-intro { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; align-items: center; padding: 4rem 0; }
+.chi-intro h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+.chi-intro p { color: var(--text-light); line-height: 1.8; margin-bottom: 1rem; }
+.chi-intro-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
+.chi-intro-img img { width: 100%; height: 400px; object-fit: cover; display: block; }
+
+.chi-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding: 4rem 0; }
+.chi-value { text-align: center; padding: 2rem; }
+.chi-value-icon { width: 64px; height: 64px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.chi-value-icon svg { color: #fff; }
+.chi-value h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+.chi-value p { color: var(--text-light); font-size: .95rem; line-height: 1.6; }
+
+.chi-certs { background: var(--off-white); padding: 4rem 0; }
+.chi-certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+.chi-cert-card { background: #fff; border-radius: var(--radius); padding: 2rem; text-align: center; box-shadow: var(--shadow-sm); border-top: 4px solid var(--gold); }
+.chi-cert-card h3 { color: var(--navy); margin-bottom: .5rem; }
+.chi-cert-card p { color: var(--text-light); font-size: .9rem; line-height: 1.5; }
+
+.chi-legal { padding: 4rem 0; }
+.chi-legal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.chi-legal-item { background: var(--off-white); padding: 1.2rem 1.5rem; border-radius: var(--radius); }
+.chi-legal-item strong { color: var(--navy); display: block; font-size: .85rem; text-transform: uppercase; letter-spacing: .5px; margin-bottom: .3rem; }
+.chi-legal-item span { color: var(--text-body); font-size: .95rem; }
+
+@media (max-width: 768px) {
+  .chi-intro { grid-template-columns: 1fr; }
+  .chi-values { grid-template-columns: 1fr; }
+  .chi-certs-grid { grid-template-columns: 1fr; }
+  .chi-legal-grid { grid-template-columns: 1fr; }
+}
