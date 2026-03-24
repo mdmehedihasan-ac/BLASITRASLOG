@@ -18,6 +18,9 @@
 .privacy-check{display:flex;align-items:flex-start;gap:10px;margin:20px 0}
 .privacy-check input{margin-top:4px;accent-color:var(--gold)}
 .privacy-check label{font-size:0.85rem;color:var(--text-light)}
+.upload-help{font-size:0.8rem;color:var(--text-light);margin-top:8px}
+.upload-list{margin-top:10px;padding-left:18px;color:var(--text-light);font-size:0.85rem}
+.upload-list li{margin-bottom:4px}
 .mailto-photo-hint{display:flex;align-items:flex-start;gap:8px;margin-top:12px;padding:10px 14px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;font-size:0.82rem;color:#0369a1;line-height:1.5}
 .mailto-photo-hint svg{flex-shrink:0;margin-top:2px}
 .form-success{display:flex;align-items:center;gap:10px;padding:14px 18px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;color:#166534;font-weight:600;font-size:0.92rem;margin-bottom:12px}

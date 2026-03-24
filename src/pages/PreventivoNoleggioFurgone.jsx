@@ -3,15 +3,43 @@ import { Link } from 'react-router-dom'
 import { Mail, CheckCircle, AlertCircle } from 'lucide-react'
 import './Preventivo.css'
 
+const WEB3FORMS_ACCESS_KEY = '8f81b793-d714-482e-8f33-1e2852cd2c65'
+const MAX_ATTACHMENTS = 5
+const MAX_FILE_SIZE = 5 * 1024 * 1024
+
 export default function PreventivoNoleggioFurgone() {
   const [form, setForm] = useState({ nome:'', cognome:'', telefono:'', email:'', durata:'', data:'', indirizzo:'', note:'', privacy:false })
   const [status, setStatus] = useState('idle')
+  const [attachments, setAttachments] = useState([])
+  const [fileError, setFileError] = useState('')
   const update = (field, value) => setForm(prev => ({ ...prev, [field]: value }))
+
+  const handleFilesChange = (e) => {
+    setFileError('')
+    const selected = Array.from(e.target.files || [])
+
+    if (selected.length > MAX_ATTACHMENTS) {
+      setAttachments(selected.slice(0, MAX_ATTACHMENTS))
+      setFileError(`Puoi allegare al massimo ${MAX_ATTACHMENTS} foto.`)
+      return
+    }
+
+    const tooLarge = selected.find(file => file.size > MAX_FILE_SIZE)
+    if (tooLarge) {
+      setAttachments([])
+      setFileError(`Il file "${tooLarge.name}" supera 5MB.`)
+      return
+    }
+
+    setAttachments(selected)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.privacy) return
+    if (fileError) return
     setStatus('sending')
+
     const message = [
       'RICHIESTA PREVENTIVO NOLEGGIO FURGONE',
       '',
@@ -22,22 +50,33 @@ export default function PreventivoNoleggioFurgone() {
       `Durata: ${form.durata}`,
       `Data: ${form.data}`,
       `Indirizzo ritiro: ${form.indirizzo}`,
+      '',
+      attachments.length ? `Foto allegate: ${attachments.length}` : 'Foto allegate: nessuna',
       form.note ? `\nNote: ${form.note}` : '',
     ].filter(Boolean).join('\n')
+
+    const payload = new FormData()
+    payload.append('access_key', WEB3FORMS_ACCESS_KEY)
+    payload.append('subject', `Richiesta Preventivo Noleggio Furgone - ${form.nome} ${form.cognome}`)
+    payload.append('from_name', `${form.nome} ${form.cognome}`)
+    payload.append('email', form.email || 'noreply@blasitraslog.it')
+    payload.append('replyto', form.email || 'noreply@blasitraslog.it')
+    payload.append('message', message)
+    attachments.forEach(file => payload.append('attachment', file))
+
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: '8f81b793-d714-482e-8f33-1e2852cd2c65',
-          subject: 'Richiesta Preventivo Noleggio Furgone — ' + form.nome + ' ' + form.cognome,
-          from_name: form.nome + ' ' + form.cognome,
-          replyto: form.email || undefined,
-          message,
-        }),
+        body: payload,
       })
       const data = await res.json()
-      setStatus(data.success ? 'success' : 'error')
+      if (data.success) {
+        setStatus('success')
+        setAttachments([])
+        setFileError('')
+      } else {
+        setStatus('error')
+      }
     } catch {
       setStatus('error')
     }
@@ -86,6 +125,19 @@ export default function PreventivoNoleggioFurgone() {
 
               <div className="form-section-title">Note aggiuntive</div>
               <div className="form-group"><textarea rows={3} value={form.note} onChange={e => update('note', e.target.value)} placeholder="Informazioni aggiuntive..." /></div>
+
+              <div className="form-section-title">Foto da allegare (opzionale)</div>
+              <div className="form-group">
+                <label>Carica foto utili</label>
+                <input type="file" accept="image/*" multiple onChange={handleFilesChange} />
+                <div className="upload-help">Massimo 5 foto, 5MB ciascuna.</div>
+                {attachments.length > 0 && (
+                  <ul className="upload-list">
+                    {attachments.map(file => <li key={file.name}>{file.name}</li>)}
+                  </ul>
+                )}
+                {fileError && <div className="form-error">{fileError}</div>}
+              </div>
 
               <div className="privacy-check">
                 <input type="checkbox" id="privacy-nf" checked={form.privacy} onChange={e => update('privacy', e.target.checked)} />
