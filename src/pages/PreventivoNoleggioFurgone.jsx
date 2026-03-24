@@ -1,29 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Mail } from 'lucide-react'
+import { Mail, CheckCircle, AlertCircle } from 'lucide-react'
 import './Preventivo.css'
 
 export default function PreventivoNoleggioFurgone() {
   const [form, setForm] = useState({ nome:'', cognome:'', telefono:'', email:'', durata:'', data:'', indirizzo:'', note:'', privacy:false })
+  const [status, setStatus] = useState('idle')
   const update = (field, value) => setForm(prev => ({ ...prev, [field]: value }))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.privacy) return
-    const msg = [
-      '*RICHIESTA PREVENTIVO NOLEGGIO FURGONE*',
-      '',
-      `*Nome:* ${form.nome} ${form.cognome}`,
-      `*Telefono:* ${form.telefono}`,
-      `*Email:* ${form.email}`,
-      '',
-      `*Durata:* ${form.durata}`,
-      `*Data:* ${form.data}`,
-      `*Indirizzo ritiro:* ${form.indirizzo}`,
-      form.note ? `\n*Note:* ${form.note}` : '',
-    ].filter(Boolean).join('\n')
-    const subject = encodeURIComponent('Richiesta Preventivo Noleggio Furgone')
-    const body = encodeURIComponent([
+    setStatus('sending')
+    const message = [
       'RICHIESTA PREVENTIVO NOLEGGIO FURGONE',
       '',
       `Nome: ${form.nome} ${form.cognome}`,
@@ -33,9 +22,25 @@ export default function PreventivoNoleggioFurgone() {
       `Durata: ${form.durata}`,
       `Data: ${form.data}`,
       `Indirizzo ritiro: ${form.indirizzo}`,
-      form.note ? `Note: ${form.note}` : '',
-    ].filter(Boolean).join('\r\n'))
-    window.location.href = `mailto:info@blasitraslog.it?subject=${subject}&body=${body}`
+      form.note ? `\nNote: ${form.note}` : '',
+    ].filter(Boolean).join('\n')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '8f81b793-d714-482e-8f33-1e2852cd2c65',
+          subject: 'Richiesta Preventivo Noleggio Furgone — ' + form.nome + ' ' + form.cognome,
+          from_name: form.nome + ' ' + form.cognome,
+          replyto: form.email || undefined,
+          message,
+        }),
+      })
+      const data = await res.json()
+      setStatus(data.success ? 'success' : 'error')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -86,8 +91,14 @@ export default function PreventivoNoleggioFurgone() {
                 <input type="checkbox" id="privacy-nf" checked={form.privacy} onChange={e => update('privacy', e.target.checked)} />
                 <label htmlFor="privacy-nf">Dichiaro di aver letto e compreso l&apos;Informativa privacy</label>
               </div>
-              <button type="submit" className="btn btn-gold btn-lg" style={{width:'100%',justifyContent:'center'}}>
-                <Mail size={20} /> Invia Richiesta via Email
+              {status === 'success' && (
+                <div className="form-success"><CheckCircle size={20} /> Richiesta inviata! Ti contatteremo presto.</div>
+              )}
+              {status === 'error' && (
+                <div className="form-error"><AlertCircle size={20} /> Errore nell'invio. Riprova o chiamaci al 320 408 5611.</div>
+              )}
+              <button type="submit" disabled={status === 'sending' || status === 'success'} className="btn btn-gold btn-lg" style={{width:'100%',justifyContent:'center'}}>
+                <Mail size={20} /> {status === 'sending' ? 'Invio in corso...' : 'Invia Richiesta'}
               </button>
             </form>
 

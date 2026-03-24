@@ -20,6 +20,9 @@
 .privacy-check label{font-size:0.85rem;color:var(--text-light)}
 .mailto-photo-hint{display:flex;align-items:flex-start;gap:8px;margin-top:12px;padding:10px 14px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;font-size:0.82rem;color:#0369a1;line-height:1.5}
 .mailto-photo-hint svg{flex-shrink:0;margin-top:2px}
+.form-success{display:flex;align-items:center;gap:10px;padding:14px 18px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;color:#166534;font-weight:600;font-size:0.92rem;margin-bottom:12px}
+.form-error{display:flex;align-items:center;gap:10px;padding:14px 18px;background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;color:#991b1b;font-weight:600;font-size:0.92rem;margin-bottom:12px}
+button:disabled{opacity:0.6;cursor:not-allowed;transform:none !important}
 @media(max-width:768px){
   .prev-layout{grid-template-columns:1fr}
   .prev-sidebar{position:static}
